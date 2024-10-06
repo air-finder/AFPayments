@@ -15,10 +15,13 @@ jobs:
         with:
           files: '${{ github.workspace }}/API/appsettings.json'
         env:
-          App.Settings.ConnectionString: ${{ secrets.CONNECTION_STRING }}
-          App.Settings.Cache: ${{ secrets.REDIS_CONNECTION_STRING }}
-          App.Settings.Jwt.Secret: ${{ secrets.JWT_SECRET }}
+          ConnectionString.SqlServer: ${{ secrets.CONNECTION_STRING }}
+          ConnectionString.Redis: ${{ secrets.REDIS_CONNECTION_STRING }}
+          AppSettings.Jwt.Secret: ${{ secrets.JWT_SECRET }}
           Serilog.WriteTo: ${{ secrets.SEQ_WRITE }}
+          Stripe.PublishableKey: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+          Stripe.SecretKey: ${{ secrets.STRIPE_SECRET_KEY }}
+          Stripe.Account: ${{ secrets.STRIPE_ACCOUNT }}
 
       - name: build
         run: |

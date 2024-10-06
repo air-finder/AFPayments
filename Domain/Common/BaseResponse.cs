@@ -1,6 +1,6 @@
 ﻿namespace Domain.Common;
 
-public abstract class BaseResponse<T>(T? result = null)
+public abstract class BaseResponse<T>(T result)
     where T : class
 {
     public List<string> Errors { get; set; } = [];

@@ -1,6 +1,6 @@
 ﻿using Domain.Common;
 
-namespace Application;
+namespace Application.Interfaces;
 
 public interface IBaseCrudService<T> where T : class
 {

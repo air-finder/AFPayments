@@ -13,16 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("App:Settings"));
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
     c.SwaggerDoc("0.0.1",
         new Microsoft.OpenApi.Models.OpenApiInfo
         {
-            Title = "Template API",
+            Title = "Payments API",
             Version = "0.0.1",
-            Description = "Template de API responsavel pelo dominio Air Finder",
+            Description = "API responsavel por gerenciar pagamentos no dominio Air Finder",
             Contact = new Microsoft.OpenApi.Models.OpenApiContact { Name = "Air Finder" }
         });
 });
@@ -50,7 +51,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-var key = Convert.FromBase64String(builder.Configuration.GetSection("App:Settings:Jwt:Secret").Value!);
+var key = Convert.FromBase64String(builder.Configuration.GetSection("AppSettings:Jwt:Secret").Value!);
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,14 +82,14 @@ app.UseAuthorization();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/0.0.1/swagger.json", "Template API"); });
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/0.0.1/swagger.json", "Payments API"); });
 }
 
 app.UseMiddleware<ControllerMiddleware>();
 
 try
 {
-    Log.Information("[ApiTemplate] Starting the application...");
+    Log.Information("[PaymentsAPI] Starting the application...");
     app.Run();
 }
 catch (Exception ex)
@@ -97,7 +98,7 @@ catch (Exception ex)
 }
 finally
 {
-    Log.Information("[ApiTemplate] Finishing the application...");
+    Log.Information("[PaymentsAPI] Finishing the application...");
     Log.CloseAndFlush();
 }
 

@@ -1,7 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Application;
+using Application.Interfaces.Stripe;
+using Application.Services.Stripe;
+using Domain.Repositories;
 using Domain.SeedWork.Notification;
 using Infra.Data;
+using Infra.Data.Repository;
 using Infra.Utils.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,9 +23,14 @@ namespace Infra.IoC
             #region Services
             services.AddScoped<INotification, Notification>();
             services.AddSingleton<IContainer, ServiceProviderProxy>();
+            services.AddScoped<IStripeProductService, StripeProductService>();
+            services.AddScoped<IStripePriceService, StripePriceService>();
+            services.AddScoped<IStripePaymentService, StripePaymentService>();
             #endregion
 
             #region Repositories
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPriceRepository, PriceRepository>();
             #endregion
         }
 
