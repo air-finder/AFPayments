@@ -3,7 +3,6 @@ using Domain.Common;
 using Domain.Common.Stripe;
 using Domain.Entities.Dtos;
 using Domain.Entities.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
