@@ -44,7 +44,7 @@ namespace Infra.IoC
         public static void AddLocalHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
             var connString = Builders.BuildConnectionString(configuration);
-            var cacheConnString = configuration["App:Settings:Cache"]!;
+            var cacheConnString = configuration["ConnectionStrings:Redis"]!;
             services.AddHealthChecks()
                 .AddSqlServer(connString)
                 .AddRedis(cacheConnString);

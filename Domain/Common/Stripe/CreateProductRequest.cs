@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Domain.Common.Stripe;
+﻿namespace Domain.Common.Stripe;
 
 public class CreateProductRequest(string name, string description, List<string>? images, string platform)
 {
